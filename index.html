@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dream Soda</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff9ad5, #8ec5ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      width: 420px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 30px;
+      padding: 40px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      font-size: 52px;
+      margin-bottom: 15px;
+      letter-spacing: 4px;
+    }
+
+    p {
+      opacity: 0.9;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    button {
+      border: none;
+      padding: 15px 28px;
+      border-radius: 999px;
+      background: white;
+      color: #ff4ea3;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      animation: float 10s infinite linear;
+    }
+
+    .bubble:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      left: 10%;
+      top: 80%;
+    }
+
+    .bubble:nth-child(2) {
+      width: 60px;
+      height: 60px;
+      left: 75%;
+      top: 90%;
+      animation-duration: 8s;
+    }
+
+    .bubble:nth-child(3) {
+      width: 140px;
+      height: 140px;
+      left: 85%;
+      top: 70%;
+      animation-duration: 14s;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(0px);
+      }
+
+      to {
+        transform: translateY(-120vh);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+  <div class="card">
+    <h1>DREAM<br>SODA</h1>
+
+    <p>
+      환상적인 소다 세계에 오신 걸 환영합니다.<br>
+      반짝이는 색감과 몽환적인 분위기의 랜덤 테스트용 사이트입니다.
+    </p>
+
+    <button onclick="showMessage()">CLICK ME</button>
+  </div>
+
+  <script>
+    function showMessage() {
+      alert('✨ Dream Soda World ✨');
+    }
+  </script>
+
+</body>
+</html>
