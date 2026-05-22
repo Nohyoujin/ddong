@@ -1,20 +1,20 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dream Soda</title>
-
+  <title>똥 먹이기 시뮬레이터</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: "Pretendard", sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #ff9ad5, #8ec5ff);
+      background: linear-gradient(180deg, #fff7e8, #ffd7a3);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -22,109 +22,202 @@
       overflow: hidden;
     }
 
-    .card {
+    .container {
       width: 420px;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.8);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
       border-radius: 30px;
-      padding: 40px;
-      color: white;
+      padding: 30px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     }
 
     h1 {
-      font-size: 52px;
-      margin-bottom: 15px;
-      letter-spacing: 4px;
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
 
-    p {
-      opacity: 0.9;
-      line-height: 1.7;
-      margin-bottom: 30px;
+    .name-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 14px;
+      border: none;
+      background: #fff;
+      font-size: 1rem;
     }
 
     button {
       border: none;
-      padding: 15px 28px;
-      border-radius: 999px;
-      background: white;
-      color: #ff4ea3;
-      font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
-      font-size: 16px;
+      transition: 0.2s;
     }
 
-    button:hover {
-      transform: scale(1.08);
+    .set-btn {
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: #ff9f43;
+      color: white;
+      font-weight: bold;
     }
 
-    .bubble {
+    .set-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .character {
+      font-size: 8rem;
+      margin: 10px 0;
+      transition: transform 0.2s;
+      user-select: none;
+    }
+
+    .character.eating {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .character-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .count {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      color: #5c3d1e;
+    }
+
+    .feed-btn {
+      width: 100%;
+      padding: 18px;
+      border-radius: 20px;
+      background: #6b3e12;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      box-shadow: 0 8px 0 #4d2c09;
+    }
+
+    .feed-btn:active {
+      transform: translateY(5px);
+      box-shadow: 0 3px 0 #4d2c09;
+    }
+
+    .message {
+      margin-top: 20px;
+      min-height: 24px;
+      color: #7a4a1b;
+      font-weight: bold;
+    }
+
+    .poop {
       position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      animation: float 10s infinite linear;
+      font-size: 2rem;
+      animation: floatUp 1.2s forwards;
+      pointer-events: none;
     }
 
-    .bubble:nth-child(1) {
-      width: 100px;
-      height: 100px;
-      left: 10%;
-      top: 80%;
-    }
-
-    .bubble:nth-child(2) {
-      width: 60px;
-      height: 60px;
-      left: 75%;
-      top: 90%;
-      animation-duration: 8s;
-    }
-
-    .bubble:nth-child(3) {
-      width: 140px;
-      height: 140px;
-      left: 85%;
-      top: 70%;
-      animation-duration: 14s;
-    }
-
-    @keyframes float {
-      from {
-        transform: translateY(0px);
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
-
-      to {
-        transform: translateY(-120vh);
+      100% {
+        opacity: 0;
+        transform: translateY(-120px) scale(1.8);
       }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>💩 먹이기 시뮬레이터</h1>
 
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
+    <div class="name-box">
+      <input type="text" id="nameInput" placeholder="캐릭터 이름 입력" />
+      <button class="set-btn" onclick="setCharacterName()">설정</button>
+    </div>
 
-  <div class="card">
-    <h1>DREAM<br>SODA</h1>
+    <div class="character" id="character">🐹</div>
+    <div class="character-name" id="characterName">햄찌</div>
+    <div class="count">먹은 개수: <span id="count">0</span></div>
 
-    <p>
-      환상적인 소다 세계에 오신 걸 환영합니다.<br>
-      반짝이는 색감과 몽환적인 분위기의 랜덤 테스트용 사이트입니다.
-    </p>
+    <button class="feed-btn" onclick="feedPoop()">
+      💩 먹이기
+    </button>
 
-    <button onclick="showMessage()">CLICK ME</button>
+    <div class="message" id="message"></div>
   </div>
 
   <script>
-    function showMessage() {
-      alert('✨ Dream Soda World ✨');
+    let count = 0;
+    let characterName = "햄찌";
+
+    const messages = [
+      "맛있게 먹었습니다...",
+      "우걱우걱 💩",
+      "행복해 보입니다",
+      "더 달라는 눈빛이다",
+      "오늘도 건강한(?) 식사",
+      "캐릭터가 만족해합니다",
+      "엄청난 속도로 먹어치웠다"
+    ];
+
+    function setCharacterName() {
+      const input = document.getElementById('nameInput');
+      const newName = input.value.trim();
+
+      if(newName !== '') {
+        characterName = newName;
+        document.getElementById('characterName').textContent = characterName;
+
+        count = 0;
+        document.getElementById('count').textContent = count;
+
+        document.getElementById('message').textContent =
+          `${characterName}(으)로 변경됨! 먹은 개수 초기화!`;
+      }
+    }
+
+    function feedPoop() {
+      count++;
+      document.getElementById('count').textContent = count;
+
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      document.getElementById('message').textContent =
+        `${characterName}: ${message}`;
+
+      const character = document.getElementById('character');
+      character.classList.add('eating');
+
+      setTimeout(() => {
+        character.classList.remove('eating');
+      }, 200);
+
+      createPoopEffect();
+    }
+
+    function createPoopEffect() {
+      const poop = document.createElement('div');
+      poop.className = 'poop';
+      poop.textContent = '💩';
+
+      poop.style.left = Math.random() * window.innerWidth + 'px';
+      poop.style.top = (window.innerHeight - 100) + 'px';
+
+      document.body.appendChild(poop);
+
+      setTimeout(() => {
+        poop.remove();
+      }, 1200);
     }
   </script>
-
 </body>
 </html>
+```
